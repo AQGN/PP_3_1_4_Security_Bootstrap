@@ -1,5 +1,6 @@
 package ru.kata.spring.boot_security.demo.model;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,12 +20,15 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "username")
-    @NotEmpty(message = "Name must be not empty!")
-    @Size(min = 4, max = 20, message = "Username must be between 4 and 20")
-    private String username;
+    @Column(name = "firstname")
+    private String firstname;
 
-    @NotEmpty(message = "Password must be not empty!")
+    @Column(name = "lastname")
+    private String lastname;
+
+    @Column(name = "age")
+    private int age;
+
     @Column(name = "password")
     private String password;
 
@@ -44,8 +48,10 @@ public class User implements UserDetails {
 
     }
 
-    public User(String username, String password, String email, Set<Role> roles) {
-        this.username = username;
+    public User(String firstname, String lastname, int age, String password, String email, Set<Role> roles) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.age = age;
         this.password = password;
         this.email = email;
         this.roles = roles;
@@ -59,17 +65,18 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setUsername(String name) {
-        this.username = name;
+    public void setFirstname(String name) {
+        this.firstname = name;
     }
 
     public String getPassword() {
         return password;
     }
+
 
     public void setPassword(String password) {
         this.password = password;
@@ -91,9 +98,30 @@ public class User implements UserDetails {
         this.email = email;
     }
 
+    public String getLastname() {
+        return lastname;
+    }
+
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return getRoles();
+    }
+
+    @Override
+    public String getUsername() {
+        return getEmail();
     }
 
     @Override

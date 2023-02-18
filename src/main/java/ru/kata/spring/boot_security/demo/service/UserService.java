@@ -9,11 +9,15 @@ public interface UserService {
 
     boolean addUser(User user);
 
-    User findByUsername(String username);
+    User findByEmail(String email);
+
+    User findByFirstname(String firstname);
 
     User getUserById(Long id);
 
-    void updateUser(Long id, User user);
+    void updateUser(User user);
 
     void deleteUser(Long id);
+
+    void setUserRoles(User user);
 }
