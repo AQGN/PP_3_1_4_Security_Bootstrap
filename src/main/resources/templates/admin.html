@@ -115,7 +115,7 @@
                                      required/>
                               <label class="form-label" for="modal-last_name">Last
                                 name:</label>
-                              <input class="form-control" type="text" th:name="lastName"
+                              <input class="form-control" type="text" th:name="lastname"
                                      th:value="${user.lastname}" id="modal-last_name"
                                      required/>
                               <label class="form-label" for="modal-age">Age:</label>
@@ -126,10 +126,10 @@
                                      th:value="${user.email}" id="modal-email" required/>
                               <label class="form-label" for="modal-roles"
                                      th:value="${user.roles}">Roles:</label>
-                              <select class="form-select" id="modal-roles" th:name="roles"
+                              <select class="form-select" id="modal-roles" th:name="roleIds"
                                       multiple="multiple" size="2" aria-label="role">
                                 <option th:each="role : ${roles}"
-                                        th:value="${role.name}"
+                                        th:value="${role.id}"
                                         th:text="${role.toString()}"
                                         th:selected="${user.roles.contains(role)}"></option>
                               </select>
@@ -170,12 +170,12 @@
                                      th:value="${user.id}" id="delete-id" disabled>
                               <label class="form-label" for="delete-first_name">First
                                 name:</label>
-                              <input class="form-control" type="text" name="firstName"
+                              <input class="form-control" type="text" name="firstname"
                                      th:value="${user.firstname}" id="delete-first_name"
                                      disabled>
                               <label class="form-label" for="delete-last_name">Last
                                 name:</label>
-                              <input class="form-control" type="text" name="lastName"
+                              <input class="form-control" type="text" name="lastname"
                                      th:value="${user.lastname}" id="delete-last_name"
                                      disabled>
                               <label class="form-label" for="delete-age">Age:</label>
@@ -250,8 +250,8 @@
                      th:errors="*{email}"></div>
 
                 <label class="form-label" for="roles">Roles:</label>
-                <select class="form-select" id="roles" th:name="roles" multiple>
-                  <option th:each="role : ${roles}" th:value="${role.name}"
+                <select class="form-select" id="roles" th:name="roleIds" multiple>
+                  <option th:each="role : ${roles}" th:value="${role.id}"
                           th:text="${role.toString()}"></option>
                 </select>
                 <input class="btn btn-success" type="submit" value="Add new user"/>

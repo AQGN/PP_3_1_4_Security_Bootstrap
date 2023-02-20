@@ -16,6 +16,7 @@ import ru.kata.spring.boot_security.demo.repository.UserRepository;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -81,11 +82,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         userRepository.deleteById(id);
     }
 
-    @Transactional(readOnly = true)
     @Override
-    public void setUserRoles(User user) {
-        user.setRoles(user.getRoles().stream()
-                .map(r -> roleService.findByName(r.getName()).get())
+    public void setUserRoles(User user, Set<Long> roleIds) {
+        user.setRoles(roleIds.stream()
+                .map(roleService::findById)
                 .collect(Collectors.toSet()));
     }
 
