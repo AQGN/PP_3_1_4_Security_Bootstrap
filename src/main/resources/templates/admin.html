@@ -252,7 +252,7 @@
                 <label class="form-label" for="roles">Roles:</label>
                 <select class="form-select" id="roles" th:name="roleIds" multiple>
                   <option th:each="role : ${roles}" th:value="${role.id}"
-                          th:text="${role.toString()}"></option>
+                          th:text="${role.toString().replaceAll('ROLE_', ' ')}"></option>
                 </select>
                 <input class="btn btn-success" type="submit" value="Add new user"/>
               </form>

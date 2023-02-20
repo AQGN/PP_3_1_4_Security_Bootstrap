@@ -64,7 +64,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public User getUserById(Long id) {
         Optional<User> foundUser = userRepository.findById(id);
-        return foundUser.orElse(null);
+        if (foundUser.isPresent()) {
+            return foundUser.get();
+        } else {
+            throw new UsernameNotFoundException(String.format("Username with id - %s not found", id));
+        }
     }
 
     @Override
@@ -90,7 +94,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    @Transactional
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         User user = findByEmail(email);
         if (user == null) {

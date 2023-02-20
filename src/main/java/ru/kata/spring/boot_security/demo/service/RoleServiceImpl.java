@@ -1,6 +1,7 @@
 package ru.kata.spring.boot_security.demo.service;
 
 
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.model.Role;
@@ -32,6 +33,11 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     public Role findById(Long id) {
-        return roleRepository.findById(id).orElse(null);
+        Optional<Role> foundRole = roleRepository.findById(id);
+        if (foundRole.isPresent()) {
+            return foundRole.get();
+        } else {
+            throw new UsernameNotFoundException(String.format("Role with id - %s not found", id));
+        }
     }
 }
